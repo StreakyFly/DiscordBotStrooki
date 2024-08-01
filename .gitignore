@@ -1,2 +1,8 @@
+# Packages
 node_modules
+
+# Env
 .env
+
+# Dist
+/dist
