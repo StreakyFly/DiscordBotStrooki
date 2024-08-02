@@ -3,15 +3,17 @@ import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { GatewayIntentBits } from 'discord.js';
 import { DiscordClient } from './types/discordClient';
-import { initDatabase } from './database';
+import db from './database';
 
 // Initialize the database
-initDatabase()
-    .then(() => {
+db.initialize()
+    .then(r => {
         console.log('Database initialized successfully.');
     })
     .catch(error => {
-        console.error('Error initializing the database:', error);
+        console.error('Error initializing the database:\n', error);
+        console.log('Exiting...');
+        process.exit(1);
     });
 
 // Create a new Discord client
