@@ -1,13 +1,14 @@
 import 'dotenv/config';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import fs from 'fs';
+import path from 'path';
+// import { fileURLToPath, pathToFileURL } from 'node:url';
 import { GatewayIntentBits } from 'discord.js';
 import { DiscordClient } from './types/discordClient';
 import db from './database';
 
 // Initialize the database
 db.initialize()
-    .then(r => {
+    .then(() => {
         console.log('Database initialized successfully.');
     })
     .catch(error => {
@@ -21,6 +22,8 @@ const client = new DiscordClient({
     intents: [GatewayIntentBits.Guilds],
 });
 
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
 // Load all command files
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
@@ -31,6 +34,8 @@ for (const folder of commandFolders) {
     for (const file of commandFiles) {
         const filePath = path.join(commandsPath, file);
         const command = require(filePath);
+        // let command = await import(pathToFileURL(filePath).href);
+        // command = command.default;
         if ('data' in command && 'execute' in command) {
             client.commands.set(command.data.name, command);
         } else {
@@ -46,6 +51,8 @@ const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'
 for (const file of eventFiles) {
     const filePath = path.join(eventsPath, file);
     const event = require(filePath);
+    // let event = await import(pathToFileURL(filePath).href);
+    // event = event.default;
     if (event.once) {
         client.once(event.name, (...args) => event.execute(...args));
     } else {

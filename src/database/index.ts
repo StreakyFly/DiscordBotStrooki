@@ -1,24 +1,9 @@
-import { Sequelize } from 'sequelize';
-import * as fs from 'node:fs';
-import * as path from 'node:path';
+import sequelize from "./database";
 
 class Database {
     private static instance: Database;
-    public sequelize: Sequelize;
     public models: { [key: string]: any } = {};
-
-    private constructor() {
-        this.sequelize = new Sequelize(
-            process.env.DB_NAME!,
-            process.env.DB_USER!,
-            process.env.DB_PASS,
-            {
-                host: process.env.DB_HOST,
-                dialect: 'postgres',
-                logging: false,
-            }
-        );
-    }
+    public sequelize = sequelize;
 
     public static getInstance(): Database {
         if (!Database.instance) {
@@ -28,20 +13,18 @@ class Database {
     }
 
     public async initialize() {
-        await this.sequelize.authenticate();
-
-        const modelsPath = path.join(__dirname, 'models');
-        const modelFiles = fs.readdirSync(modelsPath).filter(file => file.endsWith('.js') || file.endsWith('.ts'));
-
-        for (const file of modelFiles) {
-            const modelPath = path.join(modelsPath, file);
-            const model = require(modelPath).default;
-            const modelName = path.basename(file, path.extname(file));
-            this.models[modelName] = model(this.sequelize);
+        try {
+            await sequelize.authenticate();
+            // console.log('Database connection has been established successfully.');
+        } catch (error) {
+            console.error('Unable to connect to the database:\n', error);
         }
 
-        await this.sequelize.sync()
-            .catch(error => {
+        await sequelize.sync()
+            .then(() => {
+                // console.log('Database synchronized successfully.');
+            })
+            .catch((error: any) => {
                 console.error('Error synchronizing the database:', error);
             });
     }
