@@ -55,8 +55,8 @@ module.exports = {
         const url = new URL(avatarURL);
         const baseUrl = url.origin + url.pathname.split('.').slice(0, -1).join('.');
 
-        const jpgLink = `${baseUrl}.jpg?size=${size}`;
         const pngLink = `${baseUrl}.png?size=${size}`;
+        const jpgLink = `${baseUrl}.jpg?size=${size}`;
         const webpLink = `${baseUrl}.webp?size=${size}`;
         const links = `**Link:** [png](${pngLink}) | [jpg](${jpgLink}) | [webp](${webpLink})`;
 
