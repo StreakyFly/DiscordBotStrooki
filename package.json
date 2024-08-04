@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/index.js",
   "scripts": {
+    "deployCommands": "tsx src/deploy-commands.ts",
     "dev": "tsx watch src/index.ts",
     "build": "tsc && tsc-alias",
     "start": "node ."
