@@ -2,7 +2,7 @@ import sequelize from "./database";
 
 class Database {
     private static instance: Database;
-    public models: { [key: string]: any } = {};
+    // public models: { [key: string]: any } = {};  // TODO remove?
     public sequelize = sequelize;
 
     public static getInstance(): Database {
@@ -15,6 +15,8 @@ class Database {
     public async initialize() {
         try {
             await sequelize.authenticate();
+            // this.models = sequelize.models;
+            // console.log(sequelize.models);
             // console.log('Database connection has been established successfully.');
         } catch (error) {
             console.error('Unable to connect to the database:\n', error);
