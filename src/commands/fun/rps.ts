@@ -4,7 +4,7 @@ import {
     EmbedBuilder,
     ActionRowBuilder,
     ButtonBuilder, ButtonStyle
-} from "discord.js";
+} from 'discord.js';
 import { rpsService } from '@/database/services'
 
 /*
@@ -31,7 +31,7 @@ module.exports = {
         .addSubcommand(subcommand =>
             subcommand
                 .setName('stats')
-                .setDescription('Display user\'s rock-paper-scissors stats')
+                .setDescription('Displays user\'s rock-paper-scissors stats')
                 .addUserOption(option =>
                     option
                         .setName('user')
