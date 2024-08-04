@@ -16,7 +16,7 @@ class Database {
         try {
             await sequelize.authenticate();
             // this.models = sequelize.models;
-            // console.log(sequelize.models);
+            // console.log(sequelize.models.get('RPSPlayerStats'));
             // console.log('Database connection has been established successfully.');
         } catch (error) {
             console.error('Unable to connect to the database:\n', error);
