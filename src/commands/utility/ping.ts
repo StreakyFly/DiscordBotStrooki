@@ -4,7 +4,7 @@ import db from '@/database';
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('ping')
-        .setDescription('Replies with the bot\'s ping!'),
+        .setDescription('Replies with the bot\'s ping'),
     async execute(interaction: CommandInteraction) {
         await interaction.deferReply();
         const reply = await interaction.fetchReply();

@@ -3,7 +3,7 @@ import { SlashCommandBuilder, CommandInteraction } from 'discord.js';
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('user')
-        .setDescription('Provides information about the user.'),
+        .setDescription('Display a user\'s info'),
     async execute(interaction: CommandInteraction) {
         await interaction.reply(
             `Tag: ${interaction.user.tag}\n

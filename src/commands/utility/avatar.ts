@@ -3,7 +3,7 @@ import { SlashCommandBuilder, CommandInteraction, CommandInteractionOptionResolv
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('avatar')
-        .setDescription('Provides the avatar of the user.')
+        .setDescription('Display a user\'s avatar')
         .addUserOption(option =>
             option
                 .setName('user')
